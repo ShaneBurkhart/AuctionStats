@@ -1,0 +1,43 @@
+<% provide(:title, @title) %>
+<div class="section dark-section">
+	<div class="container">
+		<h1>What's Selling</h1>
+		<div class="row">
+			<div class="span2"><%= link_to 'Day', selling_path("day"), class: ("btn btn-block " + btn_active(@time, "day")) %></div>
+			<div class="span2"><%= link_to 'Week', selling_path("week"), class: ("btn btn-block " + btn_active(@time, "week")) %></div>
+			<div class="span2"><%= link_to 'Month', selling_path("month"), class: ("btn btn-block " + btn_active(@time, "month")) %></div>
+		</div>
+		<div class="row">
+			<div class="span12">
+				<ul class="unstyled" id="top-sellers">
+					<% @top.each_with_index do |data, key| %>
+						<li><p><%= (key + 1).to_s + ". " + data.category.name %></p></li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="section">
+	<div class="container">
+		<ul class="unstyled" id="selling-list">
+			<li class="row" id="types">
+				<div class="span1"><p>Rank</p></div>
+				<div class="span4"><p>Category</p></div>
+				<div class="span2"><p class="center">% Sold</p></div>
+				<div class="span3"><p class="center">% of All Acutions Sold</p></div>
+				<div class="span2"><p class="center">Avg. Price</p></div>
+			</li>
+			<% @data.each_with_index do |data, key| %>
+				<li class="row">
+					<div class="span1"><p><%= (key + 1) %></p></div>
+					<div class="span4"><p><%= data.category.name %></p></div>
+					<div class="span2"><p class="center"><%= data.percent_of_category.to_s + "%" %></p></div>
+					<div class="span3"><p class="center"><%= data.percent_of_overall.to_s + "%" %></p></div>
+					<div class="span2"><p class="center"><%= "$" + data.average_price.to_s %></p></div>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+</div>
